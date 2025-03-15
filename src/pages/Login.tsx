@@ -28,6 +28,10 @@ const formSchema = z.object({
   }),
 });
 
+// Admin credentials
+const ADMIN_EMAIL = "admin@qrregister.com";
+const ADMIN_PASSWORD = "admin123";
+
 export default function Login() {
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -42,17 +46,30 @@ export default function Login() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    // In a real app, you would authenticate against your backend
     
-    toast({
-      title: "Login successful!",
-      description: "Welcome back to QRRegister.",
-    });
-    
-    // Redirect to dashboard or home page after successful login
-    setTimeout(() => {
-      navigate('/');
-    }, 1500);
+    // Check if admin credentials were used
+    if (values.email === ADMIN_EMAIL && values.password === ADMIN_PASSWORD) {
+      toast({
+        title: "Admin login successful!",
+        description: "Welcome to the admin dashboard.",
+      });
+      
+      // Redirect to admin events management
+      setTimeout(() => {
+        navigate('/admin/events');
+      }, 1500);
+    } else {
+      // Regular user login (in a real app, you would authenticate against your backend)
+      toast({
+        title: "Login successful!",
+        description: "Welcome back to QRRegister.",
+      });
+      
+      // Redirect to dashboard or home page after successful login
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
+    }
   }
 
   return (
@@ -109,6 +126,14 @@ export default function Login() {
               <Button variant="link" className="p-0" onClick={() => navigate('/register')}>
                 Create an account
               </Button>
+            </div>
+            
+            <div className="border-t pt-4 mt-4">
+              <p className="text-sm text-center text-muted-foreground mb-2">Admin access</p>
+              <div className="text-xs text-center text-muted-foreground space-y-1">
+                <p>Email: admin@qrregister.com</p>
+                <p>Password: admin123</p>
+              </div>
             </div>
           </div>
         </div>
