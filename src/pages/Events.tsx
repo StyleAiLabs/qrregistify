@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -26,7 +26,6 @@ const Events = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
   
-  // Demo events data - more comprehensive for the events page
   const eventsData = [
     {
       id: "1",
@@ -129,7 +128,6 @@ const Events = () => {
     }
   ];
   
-  // Filter events based on search term
   const filteredEvents = eventsData.filter(event => 
     event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     event.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -145,7 +143,6 @@ const Events = () => {
       <Navbar />
       
       <main className="flex-1 pt-20">
-        {/* Page Header */}
         <section className="bg-secondary/30 py-12">
           <div className="container mx-auto px-4">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -157,7 +154,6 @@ const Events = () => {
           </div>
         </section>
         
-        {/* Search and Filter Bar */}
         <section className="py-6 border-b sticky top-16 bg-background/95 backdrop-blur-sm z-10">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row gap-4">
@@ -207,7 +203,6 @@ const Events = () => {
               </div>
             </div>
             
-            {/* Advanced Filters */}
             {showFilters && (
               <div className="mt-4 p-4 border rounded-lg bg-card animate-fade-down">
                 <div className="flex justify-between items-center mb-4">
@@ -297,7 +292,6 @@ const Events = () => {
           </div>
         </section>
         
-        {/* Events Display */}
         <section className="py-10">
           <div className="container mx-auto px-4">
             {filteredEvents.length === 0 ? (
